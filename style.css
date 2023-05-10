@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-image: url("signup.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+td{
+    border: 2px solid black;
+}
+
+.top_heading{
+    margin-top: 30px;
+    border-radius: 20px;
+    padding: 20px;
+    display: inline-block;
+    background-color: white;
+    opacity: 0.5;
+}
+
+.top_heading:hover{
+    background-color: aqua;
+}
+
+.signup-form{
+    margin-top: 30px;
+    border-radius: 20px;
+    padding: 50px;
+    display: inline-block;
+    background-color: white;
+    opacity: 0.75;
+}
+
+.password-eye:hover{
+    cursor: pointer;
+}

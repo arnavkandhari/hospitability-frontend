@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital SignUp</title>
+    <!-- <link rel="stylesheet" href="/style.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="./script.js" defer> </script> -->
+    <script src="script.js" defer> </script>
+
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+        crossorigin="anonymous"
+    >
+</head>
+<body>
+    <center><div class="top_heading"><h1>Hospital SignUp Page</h1></div></center>
+    <center><div class="signup-form">
+        <!-- Hospital name -->
+        <div class="form-group row">
+            <label for="hospital-name" class="col-sm-3 col-form-label">Hospital&nbsp;Name: </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="hospital-name" placeholder="Hospital Name" required>
+            </div>
+        </div>
+
+        <!-- Hospital email -->
+        <div class="form-group row">
+            <label for="hospital-email" class="col-sm-3 col-form-label">Hospital&nbsp;Email: </label>
+            <div class="col-sm-9">
+              <input type="email" class="form-control" id="hospital-email" placeholder="Hospital Email" required>
+            </div>
+        </div>
+        
+        <!-- Password -->
+        <div class="form-group row">
+            <label for="hospital-password" class="col-sm-3 col-form-label">Password: </label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control hospital-password" id="hospital-password" placeholder="Set a strong password" required>
+              <img class="password-eye" id="password-eye-open" src="assets/open-eye.svg" onclick="togglePasswordVisibility()" style="display: none;" alt="">
+              <img class="password-eye" id="password-eye-close" src="assets/close-eye.svg" onclick="togglePasswordVisibility()" alt="">
+              </div>
+        </div>
+
+        <!-- Hospital location(city) -->
+        <div class="form-group row">
+            <label for="hospital-location" class="col-sm-3 col-form-label">Location: </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="hospital-location" placeholder="Enter the city name" required>
+            </div>
+        </div>
+
+        
+
+        <!-- Exact Hospital location(latitude and longitude) -->
+        <div class="form-group row">
+            <label for="hospital-latitude" class="col-sm-3 col-form-label">Latitude: </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="hospital-latitude" readonly>
+            </div>
+        </div>
+        
+
+        <div class="form-group row">
+            <label for="hospital-longitude" class="col-sm-3 col-form-label">Longitude: </label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="hospital-longitude" readonly>
+            </div>
+        </div>
+
+        <button class="btn btn-primary mb-3" onclick="getAndSetLocation()">Get Exact Location</button>
+
+        <!-- Number of floors -->
+        <div class="form-group row">
+            <label for="hospital-total-floors" class="col-sm-3 col-form-label">Number of Floors: </label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control calcNRooms" id="hospital-total-floors" value="0">
+            </div>
+        </div>
+
+        <!-- Number of rooms in each floor -->
+        <div class="form-group row">
+            <label for="hospital-floor-rooms" class="col-sm-3 col-form-label">Number of Rooms in each floor: </label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control calcNRooms" id="hospital-floor-rooms" value="0">
+            </div>
+        </div>
+
+
+        <!-- Update Floor-wise number of Rooms -->
+        <button class="btn btn-primary mb-3" id="updateFloorWiseRooms" onclick="toggleVisibility('FloorWiseDetails');displayFloorRooms();toggleVisibility('updateFloorWiseRooms')">Update Floor-wise number of Rooms</button><br>
+        <div class="FloorWiseDetails" id="FloorWiseDetails" style="display: none;">
+            <table id="FloorWiseDetailsTable">
+                <tr>
+                    <td>Floor</td>
+                    <td>Number of Rooms</td>
+                </tr>
+            </table>
+
+            <button class="btn btn-primary mt-5 mb-3" onclick="updateFloorRooms();toggleVisibility('FloorWiseDetails');toggleVisibility('updateFloorWiseRooms')">Update</button>
+        </div>
+
+        <!-- Total number of Rooms -->
+        <div class="form-group row">
+            <label for="hospital-total-rooms" class="col-sm-3 col-form-label">Total Rooms: </label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control calcNRooms" id="hospital-total-rooms" value="0" readonly>
+            </div>
+        </div>
+
+        <button class="btn btn-primary mb-3" onclick="validate()">Submit details and SignUp</button>
+
+    </div></center>
+
+
+
+    <!-- JS Imports -->
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" 
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+        crossorigin="anonymous">
+    </script>
+
+    <!-- BootStrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" 
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+        crossorigin="anonymous">
+    </script>
+</body>
+</html>
